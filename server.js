@@ -12,12 +12,10 @@ app.use(express.json())
 // Connect to database
 const db = mysql.createConnection(
   {
-    host: 'localhost',
-    // MySQL username,
-    user: 'root',
-    // TODO: Add MySQL password
-    password: process.env.password,
-    database: process.env.database
+    host: process.env.CLEARDB_HOST || 'localhost',
+    user: process.env.CLEARDB_USER || process.env.user,
+    password: process.env.CLEARDB_PASSWORD || process.env.password,
+    database: process.env.CLEARDB_DB || process.env.database
   },
   console.log(`Connected to the movie_db database.`)
 )

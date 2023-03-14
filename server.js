@@ -1,10 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 // Import and require mysql2
 const mysql = require('mysql2')
 
 const PORT = process.env.PORT || 3001
 const app = express()
-
+app.use(cors())
 // Express middleware
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())

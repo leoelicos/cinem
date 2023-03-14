@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // Connect to database
-const db = mysql.createConnection(
+const db = mysql.createPool(
   {
     host: process.env.CLEARDB_HOST || 'localhost',
     user: process.env.CLEARDB_USER || process.env.user,
@@ -207,6 +207,6 @@ app.use((req, res) => {
   res.status(404).end()
 })
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

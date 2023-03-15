@@ -1,9 +1,8 @@
-const express = require('express')
-const cors = require('cors')
+import express from 'express'
+import cors from 'cors'
 // Import and require mysql2
-const mysql = require('mysql2')
+import db from './config/connection.js'
 
-const PORT = process.env.PORT || 3001
 const app = express()
 app.use(cors())
 // Express middleware
@@ -11,15 +10,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // Connect to database
-const db = mysql.createConnection(
-  {
-    host: process.env.CLEARDB_HOST || 'localhost',
-    user: process.env.CLEARDB_USER || process.env.user,
-    password: process.env.CLEARDB_PASSWORD || process.env.password,
-    database: process.env.CLEARDB_DB || process.env.database
-  },
-  console.log(`Connected to the movie_db database.`)
-)
 
 // Query database
 app.get('/api/movies', (req, res) => {
@@ -208,6 +198,7 @@ app.use((req, res) => {
   res.status(404).end()
 })
 
-app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+const port = process.env.PORT || 3001
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
 })
